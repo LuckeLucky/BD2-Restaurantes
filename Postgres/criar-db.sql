@@ -547,3 +547,57 @@ alter table STOCK
       references ITENS (ID_ITEN)
       on delete restrict on update restrict;
 
+
+/*==============================================================*/
+/* SEQUENCIAS                                                   */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_alergias START 1;
+ALTER TABLE alergias ALTER COLUMN id_alergia SET DEFAULT nextval('seq_alergias');
+ALTER TABLE alergias ALTER COLUMN id_alergia SET NOT NULL;
+ALTER SEQUENCE seq_alergias OWNED BY alergias.id_alergia; 
+
+CREATE SEQUENCE seq_clientes START 1;
+ALTER TABLE clientes ALTER COLUMN id_cliente SET DEFAULT nextval('seq_clientes');
+ALTER TABLE clientes ALTER COLUMN id_cliente SET NOT NULL;
+ALTER SEQUENCE seq_clientes OWNED BY clientes.id_cliente; 
+
+CREATE SEQUENCE seq_consumos START 1;
+ALTER TABLE consumos ALTER COLUMN id_consumo SET DEFAULT nextval('seq_consumos');
+ALTER TABLE consumos ALTER COLUMN id_consumo SET NOT NULL;
+ALTER SEQUENCE seq_consumos OWNED BY consumos.id_consumo; 
+
+CREATE SEQUENCE seq_datas START 1;
+ALTER TABLE datas ALTER COLUMN id_data SET DEFAULT nextval('seq_datas');
+ALTER TABLE datas ALTER COLUMN id_data SET NOT NULL;
+ALTER SEQUENCE seq_datas OWNED BY datas.id_data; 
+
+CREATE SEQUENCE seq_ementas START 1;
+ALTER TABLE ementas ALTER COLUMN id_ementa SET DEFAULT nextval('seq_ementas');
+ALTER TABLE ementas ALTER COLUMN id_ementa SET NOT NULL;
+ALTER SEQUENCE seq_ementas OWNED BY ementas.id_ementa; 
+
+CREATE SEQUENCE seq_funcionarios START 1;
+ALTER TABLE funcionarios ALTER COLUMN id_funcionario SET DEFAULT nextval('seq_funcionarios');
+ALTER TABLE funcionarios ALTER COLUMN id_funcionario SET NOT NULL;
+ALTER SEQUENCE seq_funcionarios OWNED BY funcionarios.id_funcionario; 
+
+CREATE SEQUENCE seq_itens START 1;
+ALTER TABLE itens ALTER COLUMN id_iten SET DEFAULT nextval('seq_itens');
+ALTER TABLE itens ALTER COLUMN id_iten SET NOT NULL;
+ALTER SEQUENCE seq_itens OWNED BY itens.id_iten; 
+
+CREATE SEQUENCE seq_locaisconsumo START 1;
+ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET DEFAULT nextval('seq_locaisconsumo');
+ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET NOT NULL;
+ALTER SEQUENCE seq_locaisconsumo OWNED BY locais_consumo.id_local_consumo; 
+
+CREATE SEQUENCE seq_restaurantes START 1;
+ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET DEFAULT nextval('seq_restaurantes');
+ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET NOT NULL;
+ALTER SEQUENCE seq_restaurantes OWNED BY restaurantes.id_restaurante; 
+
+
+
+
+
