@@ -118,6 +118,7 @@ ID_ALERGIA
 create table CLIENTES (
    ID_CLIENTE           INT4                 not null,
    NOME                 VARCHAR(20)          not null,
+   NIF					VARCHAR(9),
    constraint PK_CLIENTES primary key (ID_CLIENTE)
 );
 
