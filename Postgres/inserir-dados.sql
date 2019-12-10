@@ -154,9 +154,6 @@ insert into restaurantes (id_restaurante, nome, email, telefone, morada) values 
 insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT, 'Podcat', 'ngiacobilio1c@nymag.com', 910000049, '0 Porter Pass');
 insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT, 'Skidoo', 'gdehooge1d@latimes.com', 910000050, '694 Mariners Cove Place');
 
-    Table
-    SQL
-
 insert into itens (id_iten, designacao) values (DEFAULT, 'Muffin Mix - Oatmeal');
 insert into itens (id_iten, designacao) values (DEFAULT, 'Flour - Whole Wheat');
 insert into itens (id_iten, designacao) values (DEFAULT, 'Roe - Flying Fish');

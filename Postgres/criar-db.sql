@@ -101,7 +101,7 @@ drop table TIPO_REFEICOES;
 /*==============================================================*/
 create table ALERGIAS (
    ID_ALERGIA           INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(30)          not null,
    constraint PK_ALERGIAS primary key (ID_ALERGIA)
 );
 
@@ -318,7 +318,7 @@ ID_RESTAURANTE
 /*==============================================================*/
 create table ITENS (
    ID_ITEN              INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    constraint PK_ITENS primary key (ID_ITEN)
 );
 
@@ -391,9 +391,9 @@ ID_ALERGIA
 create table RESTAURANTES (
    ID_RESTAURANTE       INT4                 not null,
    NOME                 VARCHAR(20)          not null,
-   EMAIL                VARCHAR(20)          not null,
+   EMAIL                VARCHAR(50)          not null,
    TELEFONE             VARCHAR(9)           not null,
-   MORADA               VARCHAR(40)          not null,
+   MORADA               VARCHAR(50)          not null,
    constraint PK_RESTAURANTES primary key (ID_RESTAURANTE)
 );
 
