@@ -4,6 +4,7 @@ import os
 import psycopg2
 import menu as Menu
 import criarementa as Ce
+import bd as BD
 
 class ementa(tk.Tk):
 
@@ -44,11 +45,6 @@ class ementa(tk.Tk):
     def criarementa(self):
         self._third_window = Ce.criarementa()
         self.destroy()
-
-def mainInterface(root):
-    my_gui = ecran_entrada(root)
-    
-
 
 if __name__ == '__main__':
     window = ementa()

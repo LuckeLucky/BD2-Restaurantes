@@ -20,18 +20,17 @@ class restaurante(tk.Tk):
         self.close_button.place( x=200, y = 280)
         self.close_button.config(width=10, height=3)
 
+        conn = psycopg2.connect(host="192.168.43.13",database="Restaurante", user="R&R_admin", password="estgv16790")
+        cur = conn.cursor()
+        cur.execute("select * from restaurantes limit 10")
+        conn.close()
+
     def endApp(self):
         os._exit(1)
 
     def goback(self):
         self._second_window = Menu.ecran_entrada()
         self.destroy()
- 
-
-def mainInterface(root):
-    my_gui = ecran_entrada(root)
-    
-
 
 if __name__ == '__main__':
     window = restaurante()

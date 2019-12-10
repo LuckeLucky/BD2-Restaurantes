@@ -3,6 +3,7 @@ import tkinter as tk
 import os
 import psycopg2
 import menu as Menu
+import bd as BD
 
 class item(tk.Tk):
 
@@ -27,14 +28,7 @@ class item(tk.Tk):
         self._second_window = Menu.ecran_entrada()
         self.destroy()
 
- 
-
-def mainInterface(root):
-    my_gui = ecran_entrada(root)
-    
-
-
 if __name__ == '__main__':
-    window = ecran_entrada_ola()
+    window = item()
     window.mainloop()
 

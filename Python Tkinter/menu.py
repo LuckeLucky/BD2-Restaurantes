@@ -6,7 +6,6 @@ import restaurantes as Rt
 import itens as It
 import ementas as Et
 
-
 class ecran_entrada(tk.Tk):
 
     def __init__(self):
@@ -49,13 +48,6 @@ class ecran_entrada(tk.Tk):
     def ementas(self):
        self._fourth_window = Et.ementa()
        self.destroy()
-
- 
-
-def mainInterface(root):
-    my_gui = ecran_entrada(root)
-    
-
 
 if __name__ == '__main__':
     window = ecran_entrada()

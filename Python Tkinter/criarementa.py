@@ -3,6 +3,7 @@ import tkinter as tk
 import os
 import psycopg2
 import ementas as Et
+import bd as BD
 
 class criarementa(tk.Tk):
 
@@ -59,12 +60,7 @@ class criarementa(tk.Tk):
         print (value)
 
     #def criarementa(self):
-        #INSERT
-
-def mainInterface(root):
-    my_gui = ecran_entrada(root)
-    
-
+        #INSERT 
 
 if __name__ == '__main__':
     window = criarementa()
