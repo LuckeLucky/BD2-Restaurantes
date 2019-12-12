@@ -12,34 +12,34 @@ class criarementa(tk.Tk):
 
         self.title("Criar Ementa")
 
-        self.geometry("600x400+30+30")
-        
+        self.geometry("800x400+30+30")
+
+        #Tipo de refeição
         tipo_ref = StringVar(self)
         escolhas_refeicao = { 'Pequeno-almoço','Almoço','Jantar'}
         tipo_ref.set('Almoço') # Opção default
-
         popupMenu1 = OptionMenu(self, tipo_ref, *escolhas_refeicao, command = self.func)
         tiporefeicao = Label(self, text="Escolha o tipo de refeição")
         tiporefeicao.place(x = 15, y = 15)
         popupMenu1.place(x = 15, y = 45)
 
+        #Tipo de ementa
         tipo_eme = StringVar(self)
         escolhas_ementa = { 'Bebidas','Entradas','Pratos de Carne', 'Pratos de Peixe', 'Sobremesas'}
         tipo_eme.set('Bebidas') # Opção default
-
         popupMenu2 = OptionMenu(self, tipo_eme, *escolhas_ementa, command = self.func)
         tipoementa = Label(self, text="Escolha o tipo de ementa")
         tipoementa.place(x = 15, y = 90)
         popupMenu2.place(x = 15, y = 120)
-
         
-        
-        #Input nome ementa
+        #Input para o nome da ementa
         nomeementa_text = Label(text = "Nome da ementa * ",)
         nomeementa_text.place(x = 15, y = 160)
         nome_ementa = StringVar()
         nomeementa_entry = Entry(textvariable = nome_ementa, width = "30")
         nomeementa_entry.place(x = 15, y = 190)
+
+        #Insert para DB
 
         self.close_button = Button(self, text="Voltar atrás", command=self.goback)
         self.close_button.place( x=100, y = 280)

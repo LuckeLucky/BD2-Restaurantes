@@ -12,7 +12,7 @@ class ecran_entrada(tk.Tk):
         super().__init__()
         self.title("Gestão de Restaurantes")
 
-        self.geometry("600x400+30+30")
+        self.geometry("800x400+30+30")
 
         self.other_button = Button(self, text="Restaurantes", command=self.restaurantes)
         self.other_button.place( x=10, y = 50)

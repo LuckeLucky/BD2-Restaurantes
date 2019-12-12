@@ -10,7 +10,7 @@ class restaurante(tk.Tk):
         super().__init__()
         self.title("Restaurantes")
 
-        self.geometry("600x400+30+30")
+        self.geometry("800x400+30+30")
 
         self.close_button = Button(self, text="Voltar atrás", command=self.goback)
         self.close_button.place( x=100, y = 280)
@@ -20,9 +20,10 @@ class restaurante(tk.Tk):
         self.close_button.place( x=200, y = 280)
         self.close_button.config(width=10, height=3)
 
-        conn = psycopg2.connect(host="192.168.43.13",database="Restaurante", user="R&R_admin", password="estgv16790")
+        conn = psycopg2.connect(host="basededados",database="Restaurante", user="R&R_admin", password="estgv16790")
         cur = conn.cursor()
         cur.execute("select * from restaurantes limit 10")
+        cur.fetchall()
         conn.close()
 
     def endApp(self):
