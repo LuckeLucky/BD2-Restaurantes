@@ -20,10 +20,14 @@ class restaurante(tk.Tk):
         self.close_button.place( x=200, y = 280)
         self.close_button.config(width=10, height=3)
 
-        conn = psycopg2.connect(host="192.168.43.13",database="Restaurante", user="R&R_admin", password="estgv16790")
+        conn = psycopg2.connect(host="localhost",database="Restaurantes", user="postgres", password="reymisterio")
         cur = conn.cursor()
-        cur.execute("select * from restaurantes limit 10")
+        cur.execute("select * from restaurantes limit 10;")
+        data = cur.fetchall()
         conn.close()
+        print(data)
+        for x in data:
+            print(x)
 
     def endApp(self):
         os._exit(1)
