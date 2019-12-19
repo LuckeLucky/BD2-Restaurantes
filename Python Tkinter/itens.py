@@ -11,7 +11,7 @@ class item(tk.Tk):
         super().__init__()
         self.title("Itens")
 
-        self.geometry("600x400+30+30")
+        self.geometry("800x400+30+30")
 
         self.close_button = Button(self, text="Voltar atrás", command=self.goback)
         self.close_button.place( x=100, y = 280)
