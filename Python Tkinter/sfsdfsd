@@ -1,0 +1,46 @@
+import tkinter as tk
+import BaseDeDados as BD
+
+class EcraInicial(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self,parent)
+
+        """
+        botao_restaurantes = tk.Button(self, text="Restaurantes",command=lambda: controller.MostrarFrame(EcraRestaurantes))
+        botao_restaurantes.place( x=10, y = 50)
+        botao_restaurantes.config(width=10, height=10)
+
+        botao_itens = tk.Button(self, text="Itens",)
+        botao_itens.pack(side="left")
+        botao_itens.place( x=110, y = 50)
+        botao_itens.config(width=10, height=10)
+
+        botao_ementas= tk.Button(self, text="Ementas",command=lambda: controller.MostrarFrame(EcraEmentas))
+        botao_ementas.pack(side="left")
+        botao_ementas.place( x=210, y = 50)
+        botao_ementas.config(width=10, height=10)
+        """
+        coluna1 = tk.Label(self, text="Nome", width=20)
+        coluna1.grid(row = 1, column = 1)
+
+        coluna2 = tk.Label(self, text="email", width=20)
+        coluna2.grid(row = 1, column = 2)
+
+        coluna3 = tk.Label(self, text="Telefone", width=20)
+        coluna3.grid(row = 1, column = 3)
+
+        coluna4 = tk.Label(self, text="Morada", width=20)
+        coluna4.grid(row = 1, column = 4)
+
+        self.ListarRestaurantes()
+
+    def ListarRestaurantes(self):
+        restaurantes = BD.SelectRestaurantes()
+
+
+        for index,restaurante in enumerate(restaurantes):
+            tk.Label(self, text = restaurante[1]).grid(row = index + 2, column = 1)
+            tk.Label(self, text = restaurante[2]).grid(row = index + 2, column = 2)
+            tk.Label(self, text = restaurante[3]).grid(row = index + 2, column = 3)
+            tk.Label(self, text = restaurante[4]).grid(row = index + 2, column = 4)
