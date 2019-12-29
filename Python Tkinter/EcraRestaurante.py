@@ -7,6 +7,9 @@ class EcraRestaurante(tk.Frame):
         tk.Frame.__init__(self,parent)
         self.controller = controller
 
+    def Mostrar(self,id):
+        self.restaurante_id=id
+        restaurante=BD.SelectRestaurante(id)
 
         butao_ementas = tk.Button(self, text="Ementas",command=self.IrParaEmentas, width=15, height = 2)
         butao_ementas.grid(row=5,column=2)
@@ -22,13 +25,6 @@ class EcraRestaurante(tk.Frame):
 
         butao_editar = tk.Button(self, text="Editar",command=self.VoltarAtras, width=15, height = 2)
         butao_editar.grid(row=6,column=3)
-
-
-
-
-    def Mostrar(self,id):
-        self.restaurante_id=id
-        restaurante=BD.SelectRestaurante(id)
 
         for r in restaurante:
             tk.Label(self, text="Nome:"+r[1]).grid(row=1,column=1,padx=10)

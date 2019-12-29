@@ -7,11 +7,13 @@ class EcraCriarEmenta(tk.Frame):
         tk.Frame.__init__(self,parent)
         self.controller = controller
 
-    def Mostrar(self,arg):
+    def Mostrar(self,id):
+        self.id_restaurante=id
 
         tk.Label(self, text="Nome da Ementa:").grid(row=0)
         self.nome = tk.Entry(self)
         self.nome.grid(row=0, column=1)
+        self.nome.focus_set()
 
         tk.Label(self, text="Preco da Ementa:").grid(row=1)
         self.preco = tk.Entry(self)
@@ -34,11 +36,27 @@ class EcraCriarEmenta(tk.Frame):
         opcao_tipo_ementa.grid(row=3,column=1)
 
         tk.Label(self, text="Escolher Itens").grid(row=4)
+        self.lista_itens= tk.Listbox(self)
+        self.lista_ids=tk.Listbox(self)
         self.lista_itens.grid(row=5)
 
         itens =BD.SelectItens()
+        for  iten in itens:
+            self.lista_itens.insert(tk.END,iten[1])
+            self.lista_ids.insert(tk.END,iten[0])
+        
+        tk.Button(self, text = "Adicionar Iten",command=self.AdicionarIten).grid(row=6)
+
+        tk.Label(self, text="Itens Adicionados").grid(row=0,column=2)
+        self.itens_ementa=tk.Listbox(self)
+        self.itens_ementa.grid(row=1,column=2,rowspan=5)
         
 
-
-        
+    def AdicionarIten(self):
+        selection=self.lista_itens.curselection()
+        y= self.lista_itens.get(selection[0])
+        x=self.lista_ids.get(selection[0])
+        print ("ID:"+str(x)+"VALOR"+str(y))
+        self.itens_ementa.insert(tk.END,str(y))
+            
 

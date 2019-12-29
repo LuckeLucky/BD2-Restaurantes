@@ -39,6 +39,7 @@ class PlataformaGestao(tk.Tk):
 
         frame = self.frames[cont]
 
+
         frame.Mostrar(arg)
         frame.tkraise()
 

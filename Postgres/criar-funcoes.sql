@@ -70,23 +70,6 @@ begin
 end;
 $body$;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 create or replace function SelectItens() RETURNS TABLE (
     id integer,
     designacao VARCHAR(50)

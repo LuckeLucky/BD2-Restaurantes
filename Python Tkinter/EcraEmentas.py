@@ -24,6 +24,7 @@ class EcraEmentas(tk.Frame):
 
 
     def Mostrar(self,id):
+        self.id_restaurante=id
 
         ementas = BD.SelectEmentasRestaurante(id)
 
@@ -31,6 +32,6 @@ class EcraEmentas(tk.Frame):
             self.tree.insert("" , "end",text=ementa[0], values=(ementa[1],ementa[2],ementa[3],ementa[4]))
 
     def IrParaAdicionarEmenta(self):
-        
+
         import EcraCriarEmenta
-        self.controller.MostrarFrame(EcraCriarEmenta.EcraCriarEmenta)
+        self.controller.MostrarFrame(EcraCriarEmenta.EcraCriarEmenta,self.id_restaurante)

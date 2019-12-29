@@ -32,8 +32,8 @@ def SearchRestaurante(str):
     data = cur.fetchall()
     return data
 
-def SelectItens(str):
-    
+def SelectItens():
+
     cur.callproc("SelectItens")
     data = cur.fetchall()
     return data
