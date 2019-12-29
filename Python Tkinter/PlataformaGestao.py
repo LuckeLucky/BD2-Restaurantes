@@ -2,7 +2,7 @@ import tkinter as tk
 from EcraInicial import *
 from EcraRestaurante import *
 from EcraEmentas import *
-from EcraCriarEmenta import *
+from EcraAdicionarRestaurante import *
 
 LARGE_FONT= ("Verdana", 12)
 
@@ -22,7 +22,7 @@ class PlataformaGestao(tk.Tk):
 
         self.frames = {}
 
-        for F in (EcraInicial,EcraRestaurante,EcraEmentas,EcraCriarEmenta):
+        for F in (EcraInicial,EcraRestaurante,EcraEmentas,EcraAdicionarRestaurante):
 
             frame = F(container, self)
 
@@ -37,10 +37,10 @@ class PlataformaGestao(tk.Tk):
     def MostrarFrame(self, cont,arg=None):
 
         frame = self.frames[cont]
+
+        frame.Mostrar(arg)
         frame.tkraise()
 
-        if arg:
-            frame.Mostrar(arg)
         
 
 

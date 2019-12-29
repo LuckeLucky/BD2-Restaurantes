@@ -15,26 +15,30 @@ class EcraInicial(tk.Frame):
         self.tree.heading("3rd", text="Telefone")
         self.tree.heading("4th", text="Morada")
         
-        self.ListarRestaurantes()
 
-        tk.Label(self, text = "Adicionar Ementa").pack(side=tk.TOP)
+        tk.Label(self, text = "Pesquisar por:").pack(side=tk.TOP)
+        tk.Button(self, text = "Adicionar Restaurante",command=self.CliqueAdicionarRestaurante).pack(side=tk.TOP)
 
-        self.tree.bind("<Double-1>", self.DuploClique)
+        self.tree.bind("<Double-1>", self.DuploCliqueTree)
 
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH)
 
 
-    def ListarRestaurantes(self):
-
+    def Mostrar(self,arg):
+        
+        self.tree.delete(*self.tree.get_children())
         restaurantes = BD.SelectRestaurantes()
 
         for index,restaurante in enumerate(restaurantes):
             self.tree.insert("" , "end",text=restaurante[0], values=(restaurante[1],restaurante[2],restaurante[3],restaurante[4]))
 
-    def DuploClique(self, event):
+    def DuploCliqueTree(self, event):
 
         import EcraRestaurante
         item = self.tree.selection()[0]
-        print("you clicked on", self.tree.item(item,"text"))
-        #limpar a arvore :) self.tree.delete(*self.tree.get_children())
         self.controller.MostrarFrame(EcraRestaurante.EcraRestaurante,self.tree.item(item,"text"))
+    
+    def CliqueAdicionarRestaurante(self):
+
+        import EcraAdicionarRestaurante
+        self.controller.MostrarFrame(EcraAdicionarRestaurante.EcraAdicionarRestaurante)

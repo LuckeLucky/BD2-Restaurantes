@@ -12,16 +12,19 @@ def SelectRestaurantes():
 
 def SelectRestaurante(id):
 
-    cur.callproc("SelectRestaurante",str(id))
+    cur.callproc("SelectRestaurante",[str(id),])
     data = cur.fetchall()
     return data
 
 def SelectEmentasRestaurante(id):
 
-    cur.callproc("SelectEmentasRestaurante",str(id))
+    cur.callproc("SelectEmentasRestaurante",[str(id),])
     data = cur.fetchall()
     return data
 
+def InsertRestaurante(nome,email,telefone,morada):
+    cur.callproc("InsertRestaurante",[nome,email,telefone,morada])
+    conn.commit()
 
  
 

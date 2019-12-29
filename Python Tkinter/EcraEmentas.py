@@ -28,6 +28,6 @@ class EcraEmentas(tk.Frame):
 
         ementas = BD.SelectEmentasRestaurante(id)
 
-        for index,ementa in enumerate(ementas):
+        for ementa in ementas:
             self.tree.insert("" , "end",text=ementa[0], values=(ementa[1],ementa[2],ementa[3],ementa[4]))
 

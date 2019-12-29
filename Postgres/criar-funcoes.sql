@@ -45,6 +45,15 @@ begin
 end;
 $body$;
 
+create or replace function InsertRestaurante(nome varchar(20),email varchar(50),telefone varchar(9),morada varchar(50)) returns boolean 
+LANGUAGE plpgsql
+as $body$
+begin
+	insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT,nome,email,telefone,morada);
+	return 1;
+end;
+$body$;
+
 
 
 
