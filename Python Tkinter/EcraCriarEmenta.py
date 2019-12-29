@@ -7,37 +7,38 @@ class EcraCriarEmenta(tk.Frame):
         tk.Frame.__init__(self,parent)
         self.controller = controller
 
-        #Tipo de refeição
+    def Mostrar(self,arg):
+
+        tk.Label(self, text="Nome da Ementa:").grid(row=0)
+        self.nome = tk.Entry(self)
+        self.nome.grid(row=0, column=1)
+
+        tk.Label(self, text="Preco da Ementa:").grid(row=1)
+        self.preco = tk.Entry(self)
+        self.preco.grid(row=1, column=1)
+
+        tk.Label(self, text="Escolher tipo de Refeição:").grid(row=2)
+        tipos_refeicao=['Pequeno-almoço','Almoço','Jantar']
         tipo_ref = tk.StringVar(self)
-        escolhas_refeicao = { 'Pequeno-almoço','Almoço','Jantar'}
-        tipo_ref.set('Almoço') # Opção default
-        popupMenu1 = tk.OptionMenu(self, tipo_ref, *escolhas_refeicao)
-        tiporefeicao = tk.Label(self, text="Escolha o tipo de refeição")
-        tiporefeicao.place(x = 15, y = 15)
-        popupMenu1.place(x = 15, y = 45)
+        tipo_ref.set(tipos_refeicao[0])
+        opcao_tipo_refeicao=tk.OptionMenu(self, tipo_ref, *tipos_refeicao)
+        opcao_tipo_refeicao.config(width=20)
+        opcao_tipo_refeicao.grid(row=2,column=1)
 
-        #Tipo de ementa
+        tk.Label(self, text="Escolher tipo de Ementa:").grid(row=3)
+        tipos_ementa=['Bebida','Entrada','Prato de Carne', 'Prato de Peixe', 'Sobremesa']
         tipo_eme = tk.StringVar(self)
-        escolhas_ementa = { 'Bebidas','Entradas','Pratos de Carne', 'Pratos de Peixe', 'Sobremesas'}
-        tipo_eme.set('Bebidas') # Opção default
-        popupMenu2 = tk.OptionMenu(self, tipo_eme, *escolhas_ementa)
-        tipoementa = tk.Label(self, text="Escolha o tipo de ementa")
-        tipoementa.place(x = 15, y = 90)
-        popupMenu2.place(x = 15, y = 120)
+        tipo_eme.set(tipos_ementa[0])
+        opcao_tipo_ementa=tk.OptionMenu(self, tipo_eme, *tipos_ementa)
+        opcao_tipo_ementa.config(width=20)
+        opcao_tipo_ementa.grid(row=3,column=1)
+
+        tk.Label(self, text="Escolher Itens").grid(row=4)
+        self.lista_itens.grid(row=5)
+
+        itens =BD.SelectItens()
         
-        #Input para o nome da ementa
-        nomeementa_text = tk.Label(text = "Nome da ementa:")
-        nomeementa_text.place(x = 15, y = 160)
-        nome_ementa = tk.StringVar()
-        nomeementa_entry = tk.Entry(textvariable = nome_ementa, width = "30")
-        nomeementa_entry.place(x = 15, y = 190)
 
-        #Insert para DB
 
-        self.close_button = tk.Button(self, text="Voltar atrás", )
-        self.close_button.place( x=100, y = 280)
-        self.close_button.config(width=10, height=3)
+        
 
-        self.close_button = tk.Button(self, text="Sair", )  
-        self.close_button.place( x=200, y = 280)
-        self.close_button.config(width=10, height=3)

@@ -17,6 +17,10 @@ class EcraInicial(tk.Frame):
         
 
         tk.Label(self, text = "Pesquisar por:").pack(side=tk.TOP)
+        self.pesquisa=tk.Entry(self)
+        self.pesquisa.pack(side=tk.TOP)
+        self.pesquisa.focus_set()
+        self.pesquisa.bind("<Return>",self.Pesquisar)
         tk.Button(self, text = "Adicionar Restaurante",command=self.CliqueAdicionarRestaurante).pack(side=tk.TOP)
 
         self.tree.bind("<Double-1>", self.DuploCliqueTree)
@@ -25,8 +29,9 @@ class EcraInicial(tk.Frame):
 
 
     def Mostrar(self,arg):
-        
+
         self.tree.delete(*self.tree.get_children())
+        self.pesquisa.delete(0, 'end')
         restaurantes = BD.SelectRestaurantes()
 
         for index,restaurante in enumerate(restaurantes):
@@ -42,3 +47,11 @@ class EcraInicial(tk.Frame):
 
         import EcraAdicionarRestaurante
         self.controller.MostrarFrame(EcraAdicionarRestaurante.EcraAdicionarRestaurante)
+
+    def Pesquisar(self,event):
+        
+        self.tree.delete(*self.tree.get_children())
+        restaurantes = BD.SearchRestaurante(self.pesquisa.get())
+
+        for index,restaurante in enumerate(restaurantes):
+            self.tree.insert("" , "end",text=restaurante[0], values=(restaurante[1],restaurante[2],restaurante[3],restaurante[4]))

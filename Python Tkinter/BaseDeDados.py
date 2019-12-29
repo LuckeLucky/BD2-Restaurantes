@@ -26,5 +26,16 @@ def InsertRestaurante(nome,email,telefone,morada):
     cur.callproc("InsertRestaurante",[nome,email,telefone,morada])
     conn.commit()
 
+def SearchRestaurante(str):
+
+    cur.callproc("SearchRestaurante",[str,])
+    data = cur.fetchall()
+    return data
+
+def SelectItens(str):
+    
+    cur.callproc("SelectItens")
+    data = cur.fetchall()
+    return data
  
 

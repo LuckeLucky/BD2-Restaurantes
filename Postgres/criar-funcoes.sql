@@ -54,6 +54,22 @@ begin
 end;
 $body$;
 
+create or replace function SearchRestaurante(str varchar(20)) RETURNS TABLE (
+    id integer,
+    nome VARCHAR(20),
+    email VARCHAR(50),
+    telefone VARCHAR(9),
+    morada VARCHAR(50)
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query select restaurantes.id_restaurante,restaurantes.nome,restaurantes.email,restaurantes.telefone,restaurantes.morada 
+	from restaurantes 
+	where restaurantes.nome like '%' || str || '%';
+end;
+$body$;
+
 
 
 

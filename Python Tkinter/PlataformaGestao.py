@@ -3,6 +3,7 @@ from EcraInicial import *
 from EcraRestaurante import *
 from EcraEmentas import *
 from EcraAdicionarRestaurante import *
+from EcraCriarEmenta import *
 
 LARGE_FONT= ("Verdana", 12)
 
@@ -22,7 +23,7 @@ class PlataformaGestao(tk.Tk):
 
         self.frames = {}
 
-        for F in (EcraInicial,EcraRestaurante,EcraEmentas,EcraAdicionarRestaurante):
+        for F in (EcraInicial,EcraRestaurante,EcraEmentas,EcraAdicionarRestaurante,EcraCriarEmenta):
 
             frame = F(container, self)
 

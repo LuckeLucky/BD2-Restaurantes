@@ -5,7 +5,6 @@ import BaseDeDados as BD
 class EcraEmentas(tk.Frame):
     
     def __init__(self, parent, controller):
-        import EcraCriarEmenta
         tk.Frame.__init__(self,parent)
         self.controller = controller
 
@@ -17,7 +16,7 @@ class EcraEmentas(tk.Frame):
         self.tree.heading("4th", text="Preço")
         
 
-        tk.Button(self, text = "Adicionar Ementa",command=lambda: controller.MostrarFrame(EcraCriarEmenta.EcraCriarEmenta)).pack(side=tk.TOP)
+        tk.Button(self, text = "Adicionar Ementa",command=self.IrParaAdicionarEmenta).pack(side=tk.TOP)
 
         #self.tree.bind("<Double-1>", self.DuploClique)
 
@@ -31,3 +30,7 @@ class EcraEmentas(tk.Frame):
         for ementa in ementas:
             self.tree.insert("" , "end",text=ementa[0], values=(ementa[1],ementa[2],ementa[3],ementa[4]))
 
+    def IrParaAdicionarEmenta(self):
+        
+        import EcraCriarEmenta
+        self.controller.MostrarFrame(EcraCriarEmenta.EcraCriarEmenta)
