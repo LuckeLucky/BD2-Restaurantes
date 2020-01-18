@@ -17,7 +17,7 @@ class EcraRestaurante(tk.Frame):
         butao_stock= tk.Button(self, text="Stock",command=self.IrParaEmentas, width=15, height = 2)
         butao_stock.grid(row=5,column=3)
 
-        butao_consumos= tk.Button(self, text="Consumos",command=self.IrParaEmentas, width=15, height = 2)
+        butao_consumos= tk.Button(self, text="Consumos",command=self.IrParaConsumos, width=15, height = 2)
         butao_consumos.grid(row=5,column=4)
 
         butao_voltar_atras = tk.Button(self, text="Voltar atrás",command=self.VoltarAtras, width=15, height = 2)
@@ -39,6 +39,10 @@ class EcraRestaurante(tk.Frame):
     def IrParaEmentas(self):
         import EcraEmentas
         self.controller.MostrarFrame(EcraEmentas.EcraEmentas,self.restaurante_id)
+
+    def IrParaConsumos(self):
+        import EcraAdicionarConsumo
+        self.controller.MostrarFrame(EcraAdicionarConsumo.EcraAdicionarConsumo, self.restaurante_id)
 
 
 

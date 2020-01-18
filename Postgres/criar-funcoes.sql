@@ -45,12 +45,15 @@ begin
 end;
 $body$;
 
-create or replace function InsertRestaurante(nome varchar(20),email varchar(50),telefone varchar(9),morada varchar(50)) returns boolean 
+create or replace function InsertRestaurante(nome varchar(20),email varchar(50),telefone varchar(9),morada varchar(50)) returns integer 
 LANGUAGE plpgsql
 as $body$
+declare
+	n_sequencia integer;
 begin
 	insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT,nome,email,telefone,morada);
-	return 1;
+	select currval('seq_restaurantes') into n_sequencia;
+	return n_sequencia;
 end;
 $body$;
 
@@ -81,4 +84,12 @@ begin
 end;
 $body$;
 
+create or replace function InserirLocalConsumo(id_restaurante integer,designacao varchar(15),lugares integer) returns boolean 
+LANGUAGE plpgsql
+as $body$
+begin
+	insert into locais_consumo (id_local_consumo, id_restaurante, designacao, numero_lugares) values (DEFAULT,id_restaurante,designacao,lugares);
+	return 1;
+end;
+$body$;
 
