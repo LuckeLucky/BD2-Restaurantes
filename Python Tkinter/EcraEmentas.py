@@ -33,5 +33,5 @@ class EcraEmentas(tk.Frame):
 
     def IrParaAdicionarEmenta(self):
 
-        import EcraCriarEmenta
-        self.controller.MostrarFrame(EcraCriarEmenta.EcraCriarEmenta,self.id_restaurante)
+        import EcraAdicionarEmenta
+        self.controller.MostrarFrame(EcraAdicionarEmenta.EcraCriarEmenta, self.id_restaurante)

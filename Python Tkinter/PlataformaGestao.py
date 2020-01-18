@@ -2,7 +2,7 @@ from EcraInicial import *
 from EcraRestaurante import *
 from EcraEmentas import *
 from EcraAdicionarRestaurante import *
-from EcraCriarEmenta import *
+from EcraAdicionarEmenta import *
 from EcraAdicionarConsumo import *
 
 LARGE_FONT = ("Verdana", 12)

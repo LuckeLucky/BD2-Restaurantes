@@ -1,0 +1,85 @@
+import tkinter as tk
+import BaseDeDados as BD
+
+
+class EcraCriarEmenta(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.lista_itens = tk.Listbox(self)
+        self.lista_ids = tk.Listbox(self)
+        self.itens_ementa = tk.Listbox(self)
+        self.itens_ementa_ids = tk.Listbox(self)
+        self.preco = tk.Entry(self)
+        self.nome = tk.Entry(self)
+
+        self.dias = []
+        self.controller = controller
+
+    def Mostrar(self, id):
+        self.id_restaurante = id
+
+        tk.Label(self, text="Nome da Ementa:").grid(row=0)
+        self.nome.grid(row=0, column=1)
+        self.nome.focus_set()
+
+        tk.Label(self, text="Preco da Ementa:").grid(row=1)
+        self.preco.grid(row=1, column=1)
+
+        tk.Label(self, text="Escolher tipo de Refeição:").grid(row=2)
+        tipos_refeicao = ['Pequeno-almoço', 'Almoço', 'Jantar']
+        tipo_ref = tk.StringVar(self)
+        tipo_ref.set(tipos_refeicao[0])
+        opcao_tipo_refeicao = tk.OptionMenu(self, tipo_ref, *tipos_refeicao)
+        opcao_tipo_refeicao.config(width=15)
+        opcao_tipo_refeicao.grid(row=2, column=1)
+
+        tk.Label(self, text="Escolher tipo de Ementa:").grid(row=3)
+        tipos_ementa = ['Bebida', 'Entrada', 'Prato de Carne', 'Prato de Peixe', 'Sobremesa']
+        tipo_eme = tk.StringVar(self)
+        tipo_eme.set(tipos_ementa[0])
+        opcao_tipo_ementa = tk.OptionMenu(self, tipo_eme, *tipos_ementa)
+        opcao_tipo_ementa.config(width=15)
+        opcao_tipo_ementa.grid(row=3, column=1)
+
+        self.DiaSemana()
+        tk.Label(self, text="Escolher Dia:").grid(row=4)
+        dia = tk.StringVar(self)
+        dia.set(self.dias[0])
+        opcao_dia = tk.OptionMenu(self, dia, *self.dias)
+        opcao_dia.config(width=15)
+        opcao_dia.grid(row=4, column=1)
+
+        tk.Label(self, text="Escolher Itens").grid(row=5)
+        self.lista_itens.grid(row=6)
+
+        itens = BD.SelectItens()
+        for iten in itens:
+            self.lista_ids.insert(tk.END, iten[0])
+            self.lista_itens.insert(tk.END, iten[1])
+
+        tk.Button(self, text="Adicionar Iten", command=self.AdicionarIten).grid(row=7)
+
+        tk.Label(self, text="Itens Adicionados:").grid(row=0, column=3, padx=20)
+        self.itens_ementa.grid(row=1, column=3, rowspan=20, padx=20, pady=0)
+
+        tk.Button(self, text="Adicionar Ementa").grid(row=9, column=1, pady=20)
+        tk.Button(self, text="Voltar Atrás", command=self.MudarEcra).grid(row=9, column=2, pady=20)
+
+    def AdicionarIten(self):
+        selection = self.lista_itens.curselection()
+        valor = self.lista_itens.get(selection[0])
+        id = self.lista_ids.get(selection[0])
+        print("ID:" + str(id) + "VALOR" + valor)
+        self.itens_ementa.insert(tk.END, valor)
+        self.itens_ementa_ids.insert(tk.END, id)
+
+    def DiaSemana(self):
+        import datetime
+        for i in range(1, 8):
+            dia_seguinte = datetime.datetime.now() + datetime.timedelta(days=i)
+            self.dias.append(dia_seguinte.strftime('%d/%m/%Y'))
+
+    def MudarEcra(self):
+        import EcraEmentas
+        self.controller.MostrarFrame(EcraEmentas.EcraEmentas, self.id_restaurante)

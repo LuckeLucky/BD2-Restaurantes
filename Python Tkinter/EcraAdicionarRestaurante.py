@@ -7,14 +7,12 @@ class EcraAdicionarRestaurante(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.lista_lugares = tk.Listbox(self)
-        self.numero_lugares = tk.Entry(self).grid(row=6, column=1)
         self.tipo_l = tk.StringVar(self)
         self.morada = tk.Entry(self)
         self.telefone = tk.Entry(self)
         self.email = tk.Entry(self)
         self.nome = tk.Entry(self)
         self.lugares = tk.Entry(self)
-
 
         self.controller = controller
 
