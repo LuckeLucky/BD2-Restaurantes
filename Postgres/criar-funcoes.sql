@@ -1,16 +1,3 @@
-create or replace function SelectRestaurantes() RETURNS TABLE (
-    id integer,
-    nome VARCHAR(20),
-    email VARCHAR(50),
-    telefone VARCHAR(9),
-    morada VARCHAR(50)
-) 
-LANGUAGE plpgsql
-as $body$
-begin
-	return query select restaurantes.id_restaurante,restaurantes.nome,restaurantes.email,restaurantes.telefone,restaurantes.morada from restaurantes;
-end;
-$body$;
 
 create or replace function SelectRestaurante(id_r integer) RETURNS TABLE (
     id integer,
@@ -57,21 +44,6 @@ begin
 end;
 $body$;
 
-create or replace function SearchRestaurante(str varchar(20)) RETURNS TABLE (
-    id integer,
-    nome VARCHAR(20),
-    email VARCHAR(50),
-    telefone VARCHAR(9),
-    morada VARCHAR(50)
-) 
-LANGUAGE plpgsql
-as $body$
-begin
-	return query select restaurantes.id_restaurante,restaurantes.nome,restaurantes.email,restaurantes.telefone,restaurantes.morada 
-	from restaurantes 
-	where restaurantes.nome like '%' || str || '%';
-end;
-$body$;
 
 create or replace function SelectItens() RETURNS TABLE (
     id integer,
@@ -92,4 +64,22 @@ begin
 	return 1;
 end;
 $body$;
+
+create or replace function SelecionarRestaurantes(pesquisa VARCHAR(20) default '',orderby VARCHAR(20) default 'nome',sentido VARCHAR(4)default 'asc' ) RETURNS TABLE (
+    id integer,
+    nome VARCHAR(20),
+    email VARCHAR(50),
+    telefone VARCHAR(9),
+    morada VARCHAR(50)
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query execute 'select restaurantes.id_restaurante,restaurantes.nome,restaurantes.email,restaurantes.telefone,restaurantes.morada 
+								from restaurantes
+								where restaurantes.nome like $$%'|| pesquisa ||
+							 '%$$ order by '|| quote_ident(orderby)||' '||sentido;
+end;
+$body$;
+
 

@@ -15,16 +15,15 @@ class EcraAdicionarRestaurante(tk.Frame):
         self.nome = tk.Entry(self)
         self.lugares = tk.Entry(self)
 
-        self.lugares_balcao = 0
 
         self.controller = controller
 
     def Mostrar(self, arg):
 
-        tk.Label(self, text="Nome").grid(row=0)
-        tk.Label(self, text="Email").grid(row=1)
-        tk.Label(self, text="Telefone").grid(row=2)
-        tk.Label(self, text="Morada").grid(row=3)
+        tk.Label(self, text="Nome:").grid(row=0)
+        tk.Label(self, text="Email:").grid(row=1)
+        tk.Label(self, text="Telefone:").grid(row=2)
+        tk.Label(self, text="Morada:").grid(row=3)
 
         self.nome.grid(row=0, column=1)
         self.nome.focus_set()
@@ -77,6 +76,15 @@ class EcraAdicionarRestaurante(tk.Frame):
             split_lugar = lugar.split()
             bd.InserirLocalConsumo(id_r, split_lugar[0], split_lugar[2])
 
+    def LimparEntry(self):
+        self.nome.delete(0, 'end')
+        self.email.delete(0, 'end')
+        self.telefone.delete(0, 'end')
+        self.morada.delete(0, 'end')
+        self.lugares.delete(0, 'end')
+        self.lista_lugares.delete(0, tk.END)
+
     def MudarEcra(self):
+        self.LimparEntry()
         import EcraInicial
         self.controller.MostrarFrame(EcraInicial.EcraInicial)

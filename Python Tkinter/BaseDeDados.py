@@ -44,3 +44,9 @@ def SelectItens():
 def InserirLocalConsumo(id_restaurante, designacao, lugares):
     cur.callproc("InserirLocalConsumo", [id_restaurante, designacao, lugares])
     conn.commit()
+
+
+def SelecionarRestaurantes(pesquisa,ordem,sentido):
+    cur.callproc("SelecionarRestaurantes", [pesquisa,ordem,sentido ])
+    data = cur.fetchall()
+    return data
