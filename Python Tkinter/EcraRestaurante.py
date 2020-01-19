@@ -10,7 +10,7 @@ class EcraRestaurante(tk.Frame):
 
     def Mostrar(self, id):
         self.restaurante_id = id
-        restaurante = BD.SelectRestaurante(id)
+        restaurante = BD.SelecionarRestaurante(id)
 
         butao_ementas = tk.Button(self, text="Ementas", command=self.IrParaEmentas, width=15, height=2)
         butao_ementas.grid(row=5, column=2)

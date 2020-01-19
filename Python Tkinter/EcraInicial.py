@@ -33,7 +33,7 @@ class EcraInicial(tk.Frame):
         botoes.pack(side=tk.TOP)
         tk.Button(self, text="Adicionar Restaurante", command=self.CliqueAdicionarRestaurante).pack(in_=botoes,
                                                                                                     side=tk.LEFT)
-        tk.Button(self, text="Adicionar Itens", command=self.CliqueAdicionarRestaurante).pack(in_=botoes, side=tk.LEFT)
+        tk.Button(self, text="Adicionar Itens", command=self.CliqueAdicionarItem).pack(in_=botoes, side=tk.LEFT)
 
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH)
 
@@ -99,3 +99,7 @@ class EcraInicial(tk.Frame):
         for index, restaurante in enumerate(restaurantes):
             self.tree.insert("", "end", text=restaurante[0],
                              values=(restaurante[1], restaurante[2], restaurante[3], restaurante[4]))
+
+    def CliqueAdicionarItem(self):
+        import EcraAdicionarItem
+        self.controller.MostrarFrame(EcraAdicionarItem.EcraAdicionarItem)

@@ -8,12 +8,13 @@ class EcraEmentas(tk.Frame):
         tk.Frame.__init__(self,parent)
         self.controller = controller
 
-        new_element_header=['1st','2nd','3rd','4th']
+        new_element_header=['1st','2nd','3rd','4th','5th']
         self.tree = ttk.Treeview(self,columns=new_element_header, show="headings")
         self.tree.heading("1st", text="Designacao")
         self.tree.heading("2nd", text="Tipo Ementa")
         self.tree.heading("3rd", text="Tipo Refeição")
-        self.tree.heading("4th", text="Preço")
+        self.tree.heading("4th", text="Data")
+        self.tree.heading("5th", text="Preço")
         
 
         tk.Button(self, text = "Adicionar Ementa",command=self.IrParaAdicionarEmenta).pack(side=tk.TOP)
@@ -24,6 +25,7 @@ class EcraEmentas(tk.Frame):
 
 
     def Mostrar(self,id):
+        self.tree.delete(*self.tree.get_children())
         self.id_restaurante=id
 
         ementas = BD.SelectEmentasRestaurante(id)
@@ -34,4 +36,4 @@ class EcraEmentas(tk.Frame):
     def IrParaAdicionarEmenta(self):
 
         import EcraAdicionarEmenta
-        self.controller.MostrarFrame(EcraAdicionarEmenta.EcraCriarEmenta, self.id_restaurante)
+        self.controller.MostrarFrame(EcraAdicionarEmenta.EcraAdicionarEmenta, self.id_restaurante)
