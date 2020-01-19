@@ -35,6 +35,8 @@ class EcraInicial(tk.Frame):
                                                                                                     side=tk.LEFT)
         tk.Button(self, text="Adicionar Itens", command=self.CliqueAdicionarItem).pack(in_=botoes, side=tk.LEFT)
 
+        tk.Button(self, text="Exportar para XML", command=self.ExportarXML).pack(in_=botoes, side=tk.LEFT)
+
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH)
 
     def Mostrar(self, arg=None):
@@ -103,3 +105,12 @@ class EcraInicial(tk.Frame):
     def CliqueAdicionarItem(self):
         import EcraAdicionarItem
         self.controller.MostrarFrame(EcraAdicionarItem.EcraAdicionarItem)
+
+    def ExportarXML(self):
+        from lxml import etree
+        xml = bd.ExportarXML()
+
+        root = etree.fromstring(xml)
+
+        with open("ficheiroXML.txt", "w") as fich_xml:
+            print(etree.tostring(root, pretty_print=True), file=fich_xml)

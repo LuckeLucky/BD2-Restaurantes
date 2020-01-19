@@ -18,6 +18,24 @@ begin
 end;
 $body$;
 
+--Exportar XML
+
+create or replace function ExportarXML() returns xml 
+LANGUAGE plpgsql
+as $body$
+DECLARE output XML;
+begin
+	select xmlelement(name "Restaurantes",xmlagg(xmlelement (name "Restaurantes",
+		xmlattributes(id_restaurante as "ID"),
+			xmlforest(restaurantes.nome as "nome", restaurantes.email as "email", restaurantes.telefone as "telefone", restaurantes.morada as "morada"), 
+				(select xmlagg(xmlelement(name "Ementas",
+					xmlforest(designacao as "Designação", preco as "Preço")))			  			
+				from ementas where restaurantes.id_restaurante=ementas.id_restaurante))))
+	from restaurantes INTO output;
+	return output;
+end;
+$body$;
+
 ----EcraAdicionarRestaurante
 --Inserir Restaurante
 

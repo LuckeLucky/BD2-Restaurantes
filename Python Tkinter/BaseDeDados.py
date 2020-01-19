@@ -35,6 +35,13 @@ def SelecionarRestaurante(id):
     return data
 
 
+# Exportar XML
+def ExportarXML():
+    cur.callproc("ExportarXML")
+    data = cur.fetchone()[0]
+    return data
+
+
 # EcraAdicionarEmenta
 # Selecionar Itens
 def SelecionarItens():
