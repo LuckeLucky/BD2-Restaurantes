@@ -57,11 +57,26 @@ def InserirItenEmenta(id_ementa, id_iten):
     conn.commit()
 
 
+# EcraEmentas
+# Preencher Treeview
 def SelectEmentasRestaurante(id):
     cur.callproc("SelectEmentasRestaurante", [str(id), ])
     data = cur.fetchall()
     return data
 
+
+# EcraStock
+# Preencher lista stock
+def SelecionarStockRestaurante(id):
+    cur.callproc("SelecionarStockRestaurante", [str(id), ])
+    data = cur.fetchall()
+    return data
+
+
+# Alterar Stock
+def AlterarStockIten(id_restaurante, id_iten, quantidade):
+    cur.callproc("AlterarStockIten", [str(id_restaurante), str(id_iten), str(quantidade)])
+    conn.commit()
 
 
 def SelectAlergias():

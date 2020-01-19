@@ -5,6 +5,7 @@ from EcraAdicionarRestaurante import *
 from EcraAdicionarEmenta import *
 from EcraAdicionarConsumo import *
 from EcraAdicionarItem import *
+from EcraStock import *
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -24,7 +25,7 @@ class PlataformaGestao(tk.Tk):
         self.frames = {}
 
         for F in (EcraInicial, EcraRestaurante, EcraEmentas, EcraAdicionarRestaurante, EcraAdicionarEmenta,
-                  EcraAdicionarConsumo,EcraAdicionarItem):
+                  EcraAdicionarConsumo,EcraAdicionarItem,EcraStock):
             frame = F(container, self)
 
             self.frames[F] = frame

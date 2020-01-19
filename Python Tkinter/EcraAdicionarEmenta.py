@@ -65,7 +65,7 @@ class EcraAdicionarEmenta(tk.Frame):
         self.itens_ementa.grid(row=1, column=3, rowspan=20, padx=20, pady=0)
 
         tk.Button(self, text="Adicionar Ementa", command=self.VerificarEntradas).grid(row=9, column=1, pady=20)
-        tk.Button(self, text="Voltar Atrás", command=self.MudarEcra).grid(row=9, column=2, pady=20)
+        tk.Button(self, text="Voltar Atrás", command=self.VoltarAtras).grid(row=9, column=2, pady=20)
 
     def AdicionarIten(self):
         selection = self.lista_itens.curselection()
@@ -87,7 +87,7 @@ class EcraAdicionarEmenta(tk.Frame):
         for id_iten in self.itens_ementa_ids.get(0, tk.END):
             BD.InserirItenEmenta(id_e, id_iten)
 
-        self.MudarEcra()
+        self.VoltarAtras()
 
     def VerificarEntradas(self):
         if self.nome.get() == '' or len(self.nome.get()) > 15:
@@ -110,6 +110,6 @@ class EcraAdicionarEmenta(tk.Frame):
         self.itens_ementa_ids.delete(0, tk.END)
         self.itens_ementa.delete(0, tk.END)
 
-    def MudarEcra(self):
+    def VoltarAtras(self):
         import EcraEmentas
         self.controller.MostrarFrame(EcraEmentas.EcraEmentas, self.id_restaurante)

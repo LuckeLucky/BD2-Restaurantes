@@ -119,35 +119,43 @@ begin
 end;
 $body$;
 
+--Trigger Inserir ao Stock
+create or replace function adicionar_item_stock() returns trigger
+LANGUAGE plpgsql
+as $body$
+declare id_r integer;
+begin
+	select ementas.id_restaurante into id_r from ementas where ementas.id_ementa=NEW.id_ementa;
+	if not exists (select * from stock where stock.id_restaurante=id_r and stock.id_iten=New.id_iten) then
+		Insert into stock values (id_r,NEW.id_iten,0);
+	end if;
+	return NEW;
+end;
+$body$;
 
+create trigger adicionar_item_stock
+after insert on ementa_itens
+for each row execute procedure adicionar_item_stock();
+
+----EcraEmentas
+--Preencher tree
 
 create or replace function SelectEmentasRestaurante(id_r integer) RETURNS TABLE (
     id integer,
     designacao_ementa VARCHAR(15),
-    preco money,
-    designacao_tipo VARCHAR(15),
-    designacao_refeicao VARCHAR(15)
+    designacao_tipo_ementa VARCHAR(15),
+   	designacao_tipo_refeicao VARCHAR(15),
+    dia date,
+		preco money
 ) 
 LANGUAGE plpgsql
 as $body$
 begin
-	return query select ementas.id_ementa,ementas.designacao,ementas.preco,tipo_ementas.designacao,tipo_refeicoes.designacao
-										from ementas join tipo_ementas
-											on ementas.id_tipo_ementa=tipo_ementas.id_tipo_ementa join tipo_refeicoes
-												on ementas.id_tipo_refeicao=tipo_refeicoes.id_tipo_refeicao join datas
-													on ementas.id_data=datas.id_data
-										where ementas.id_restaurante=id_r;
+	return query select * from mostrar_ementas where mostrar_ementas.id = ANY (select id_ementa from ementas where id_restaurante=id_r);
 end;
 $body$;
 
-
-
-
-
-
-
-
-----------------------------ECRAADICIONAREMENTAS
+--View
 create view mostrar_ementas
 as select ementas.id_ementa as Id,ementas.designacao as "Designacao",tipo_ementas.designacao as "Tipo Ementa",
 					tipo_refeicoes.designacao as "Tipo Refeicao",datas.data as "Data",ementas.preco as "Preco"
@@ -157,9 +165,35 @@ as select ementas.id_ementa as Id,ementas.designacao as "Designacao",tipo_ementa
 				on ementas.id_tipo_refeicao=tipo_refeicoes.id_tipo_refeicao
 				
 				
+----EcraStock
+--Preencher lista
 
+create or replace function SelecionarStockRestaurante(id_r integer) RETURNS TABLE (
+    id integer,
+    designacao VARCHAR(50),
+		quantidade integer
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query select stock.id_iten,itens.designacao,stock.numero_itens
+								from stock join itens
+									on stock.id_iten=itens.id_iten
+								where stock.id_restaurante=id_r;
+end;
+$body$;
 
+--AlterarStock
 
+create or replace function AlterarStockIten(id_r integer,id_i integer,quantidade integer) returns void
+LANGUAGE plpgsql
+as $body$
+begin
+		update stock
+		set numero_itens=quantidade
+		where id_restaurante=id_r and id_iten=id_i;
+end;
+$body$;
 
 
 
@@ -173,3 +207,4 @@ begin
 	return query select * from alergias;
 end;
 $body$;
+
