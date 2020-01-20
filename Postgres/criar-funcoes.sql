@@ -360,6 +360,9 @@ begin
 end;
 $body$;
 
+----EcraAdicionarItem
+--Preencher Alergias
+
 create or replace function SelectAlergias() RETURNS TABLE (
     id integer,
     designacao VARCHAR(50)
@@ -370,3 +373,45 @@ begin
 	return query select * from alergias;
 end;
 $body$;
+
+--Inserir Nova Alergia
+
+create or replace function InserirAlergia(nome varchar(30)) RETURNS void
+LANGUAGE plpgsql
+as $body$
+begin
+	insert into alergias values (DEFAULT,nome);
+end;
+$body$;
+
+--Inserir Itens
+
+create or replace function InserirIten(nome varchar(50)) RETURNS integer
+LANGUAGE plpgsql
+as $body$
+declare
+	n_sequencia integer;
+begin
+	insert into itens values (DEFAULT,nome);
+	select currval('seq_itens') into n_sequencia;
+	return n_sequencia;
+end;
+$body$;
+
+--Inserir Alergia Itens
+
+create or replace function InserirAlergiaIten(id_i integer,nome varchar(30)) RETURNS boolean
+LANGUAGE plpgsql
+as $body$
+declare
+	id_a integer;
+begin
+	select alergias.id_alergia into id_a from alergias where alergias.designacao=nome;
+	Insert into causa values (id_i,id_a);
+	return 1;
+end;
+$body$;
+
+
+
+

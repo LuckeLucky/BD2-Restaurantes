@@ -136,8 +136,29 @@ def DeConsumirEmenta(id_restaurante,id_ementa):
     conn.commit()
 
 
-
-def SelectAlergias():
-    cur.callproc("SelectAlergias")
+# EcraAdicionarItem
+# SelecionarAlergias
+def SelecionarAlergias():
+    cur.callproc("SelecionarAlergias")
     data = cur.fetchall()
     return data
+
+
+# Adicionar Nova Alergia
+def InserirAlergia(nome):
+    cur.callproc("InserirAlergia",[nome])
+    conn.commit()
+
+
+# Inserir Iten
+def InserirIten(nome):
+    cur.callproc("InserirIten", [nome])
+    data = cur.fetchone()[0]
+    conn.commit()
+    return data
+
+
+#Inserir Alergia Iten
+def InserirAlergiaIten(id_iten,nome_alergia):
+    cur.callproc("InserirAlergiaIten", [str(id_iten),nome_alergia])
+    conn.commit()
