@@ -125,13 +125,13 @@ def InserirConsumo(id_restaurante, nome_cliente, nif_cliente, nome_local, lugare
 
 
 # Inserir Consumo Ementa
-def InserirConsumoEmenta(id_consumo,id_ementa):
-    cur.callproc("InserirConsumoEmenta", [str(id_consumo),str(id_ementa)])
+def InserirConsumoEmenta(id_consumo, id_ementa):
+    cur.callproc("InserirConsumoEmenta", [str(id_consumo), str(id_ementa)])
     conn.commit()
 
 
 # Retirar consumo
-def DeConsumirEmenta(id_restaurante,id_ementa):
+def DeConsumirEmenta(id_restaurante, id_ementa):
     cur.callproc("DeConsumirEmenta", [str(id_restaurante), str(id_ementa)])
     conn.commit()
 
@@ -146,7 +146,7 @@ def SelecionarAlergias():
 
 # Adicionar Nova Alergia
 def InserirAlergia(nome):
-    cur.callproc("InserirAlergia",[nome])
+    cur.callproc("InserirAlergia", [nome])
     conn.commit()
 
 
@@ -158,7 +158,20 @@ def InserirIten(nome):
     return data
 
 
-#Inserir Alergia Iten
-def InserirAlergiaIten(id_iten,nome_alergia):
-    cur.callproc("InserirAlergiaIten", [str(id_iten),nome_alergia])
+# Inserir Alergia Iten
+def InserirAlergiaIten(id_iten, nome_alergia):
+    cur.callproc("InserirAlergiaIten", [str(id_iten), nome_alergia])
+    conn.commit()
+
+
+# EcraEditarRestaurante
+# Alterar Restaurante
+def AlterarRestaurante(id_restaurante, nome, email, telefone, morada):
+    cur.callproc("AlterarRestaurante", [str(id_restaurante), nome, email, telefone, morada])
+    conn.commit()
+
+
+# Apagar Restaurante
+def ApagarRestaurante(id_restaurante):
+    cur.callproc("ApagarRestaurante", [str(id_restaurante)])
     conn.commit()

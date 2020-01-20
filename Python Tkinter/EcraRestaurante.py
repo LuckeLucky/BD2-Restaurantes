@@ -24,7 +24,7 @@ class EcraRestaurante(tk.Frame):
         butao_voltar_atras = tk.Button(self, text="Voltar atrás", command=self.VoltarAtras, width=15, height=2)
         butao_voltar_atras.grid(row=6, column=2)
 
-        butao_editar = tk.Button(self, text="Editar", command=self.VoltarAtras, width=15, height=2)
+        butao_editar = tk.Button(self, text="Editar", command=self.IrParaEditar, width=15, height=2)
         butao_editar.grid(row=6, column=3)
 
         for r in restaurante:
@@ -48,3 +48,7 @@ class EcraRestaurante(tk.Frame):
     def IrParaSock(self):
         import EcraStock
         self.controller.MostrarFrame(EcraStock.EcraStock, self.restaurante_id)
+
+    def IrParaEditar(self):
+        import EcraEditarRestaurante
+        self.controller.MostrarFrame(EcraEditarRestaurante.EcraEditarRestaurante, self.restaurante_id)

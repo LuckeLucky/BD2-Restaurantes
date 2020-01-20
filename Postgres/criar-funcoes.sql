@@ -343,22 +343,7 @@ begin
 	end;
 $body$;
 
---Apagar Restaurante
 
-create or replace function DropRestaurante(id_rest integer) returns boolean 
-LANGUAGE plpgsql
-as $body$
-begin
-	delete from ementa_itens where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest);
-	delete from stock where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
-	delete from consumo_ementas where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest) and id_consumo in (select id_consumo from consumos, locais_consumo where consumos.id_local_consumo = locais_consumo.id_local_consumo and locais_consumo.id_restaurante = id_rest);
-	delete from consumos where id_local_consumo in (select id_local_consumo from locais_consumo where id_restaurante = id_rest);
-	delete from locais_consumo where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
-	delete from ementas where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
-	delete from restaurantes where id_restaurante = id_rest;
-	return 1;
-end;
-$body$;
 
 ----EcraAdicionarItem
 --Preencher Alergias
@@ -408,6 +393,36 @@ declare
 begin
 	select alergias.id_alergia into id_a from alergias where alergias.designacao=nome;
 	Insert into causa values (id_i,id_a);
+	return 1;
+end;
+$body$;
+
+----Ecra Editar Restaurante
+-- Alterar Restaurante
+create or replace function AlterarRestaurante(id_r integer,n varchar(20),e varchar(50),tel varchar(9),mor varchar(50)) returns boolean 
+LANGUAGE plpgsql
+as $body$
+begin
+	update restaurantes
+	set nome=n,email=e,telefone=tel,morada=mor
+	where restaurantes.id_restaurante=id_r;
+	return 1;
+end;
+$body$;
+
+--Apagar Restaurante
+
+create or replace function ApagarRestaurante(id_rest integer) returns boolean 
+LANGUAGE plpgsql
+as $body$
+begin
+	delete from ementa_itens where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest);
+	delete from stock where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from consumo_ementas where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest) and id_consumo in (select id_consumo from consumos, locais_consumo where consumos.id_local_consumo = locais_consumo.id_local_consumo and locais_consumo.id_restaurante = id_rest);
+	delete from consumos where id_local_consumo in (select id_local_consumo from locais_consumo where id_restaurante = id_rest);
+	delete from locais_consumo where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from ementas where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from restaurantes where id_restaurante = id_rest;
 	return 1;
 end;
 $body$;

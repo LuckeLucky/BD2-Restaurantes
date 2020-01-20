@@ -6,6 +6,7 @@ from EcraAdicionarEmenta import *
 from EcraAdicionarConsumo import *
 from EcraAdicionarItem import *
 from EcraStock import *
+from EcraEditarRestaurante import *
 
 
 
@@ -24,7 +25,7 @@ class PlataformaGestao(tk.Tk):
         self.frames = {}
 
         for F in (EcraInicial, EcraRestaurante, EcraEmentas, EcraAdicionarRestaurante, EcraAdicionarEmenta,
-                  EcraAdicionarConsumo,EcraAdicionarItem,EcraStock):
+                  EcraAdicionarConsumo,EcraAdicionarItem,EcraStock,EcraEditarRestaurante):
             frame = F(container, self)
 
             self.frames[F] = frame
