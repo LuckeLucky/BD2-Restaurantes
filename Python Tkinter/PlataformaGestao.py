@@ -7,7 +7,6 @@ from EcraAdicionarConsumo import *
 from EcraAdicionarItem import *
 from EcraStock import *
 
-LARGE_FONT = ("Verdana", 12)
 
 
 class PlataformaGestao(tk.Tk):

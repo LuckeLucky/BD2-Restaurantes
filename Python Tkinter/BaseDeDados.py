@@ -86,6 +86,18 @@ def AlterarStockIten(id_restaurante, id_iten, quantidade):
     conn.commit()
 
 
+# EcraAdicionarConsumo
+# Preenche Locais de Consumo
+def SelecionarLocaisConsumoRestaurante(id_restaurante):
+    cur.callproc("SelecionarLocaisConsumoRestaurante", [str(id_restaurante), ])
+    data = cur.fetchall()
+    return data
+
+
+# Preenche lista de Ementas
+
+
+
 def SelectAlergias():
     cur.callproc("SelectAlergias")
     data = cur.fetchall()

@@ -189,7 +189,7 @@ as select ementas.id_ementa as Id,ementas.designacao as "Designacao",tipo_ementa
 create or replace function SelecionarStockRestaurante(id_r integer) RETURNS TABLE (
     id integer,
     designacao VARCHAR(50),
-		quantidade integer
+	quantidade integer
 ) 
 LANGUAGE plpgsql
 as $body$
@@ -213,7 +213,22 @@ begin
 end;
 $body$;
 
+----EcraAdicionarConsumo
+--Listar Locais de Consumo
 
+create or replace function SelecionarLocaisConsumoRestaurante(id_r integer) RETURNS TABLE (
+    id integer,
+    designacao VARCHAR(15),
+    lugares integer
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query select locais_consumo.id_local_consumo,locais_consumo.designacao,locais_consumo.numero_lugares 
+	from locais_consumo 
+	where locais_consumo.id_restaurante=id_r;
+end;
+$body$;
 
 create or replace function SelectAlergias() RETURNS TABLE (
     id integer,
