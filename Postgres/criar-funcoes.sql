@@ -295,15 +295,52 @@ begin
 end;
 $body$;
 
-create or replace function SelectAlergias() RETURNS TABLE (
-    id integer,
-    designacao VARCHAR(50)
-) 
+--Desconsomir Ementa
+
+create or replace function DeConsumirEmenta(id_r integer,id_e integer) RETURNS boolean
+LANGUAGE plpgsql
+as $body$
+DECLARE 
+begin
+	update stock
+	set numero_itens=numero_itens+1
+	where id_iten IN (select ementa_itens.id_iten from ementa_itens where ementa_itens.id_ementa=id_e) and id_restaurante=id_r;
+	return 1;
+end;
+$body$;
+
+
+--Inserir Consumo
+
+create or replace function InserirConsumo(id_r integer,nome_cliente varchar(20),nif_c varchar(9),nomelocal varchar(15),lugares integer,preco money) RETURNS integer
+LANGUAGE plpgsql
+as $body$
+DECLARE 
+	id_c integer;
+	id_l integer;
+	n_sequencia integer;
+begin
+	if not exists(select * from clientes where clientes.nome=nome_cliente and clientes.nif=nif_c) then
+		Insert into clientes values (DEFAULT,nome_cliente,nif_c);
+	end if;
+	select clientes.id_cliente into id_c from clientes where clientes.nome=nome_cliente and clientes.NIF=nif_c;
+	select locais_consumo.id_local_consumo into id_l 
+	from locais_consumo where locais_consumo.id_restaurante=id_r and locais_consumo.designacao=nomelocal and locais_consumo.numero_lugares=lugares limit 1;
+	INSERT into consumos values (DEFAULT,id_c,id_l,preco);
+	select currval('seq_consumos') into n_sequencia;
+	return n_sequencia;
+	end;
+$body$;
+
+--Inserir Consumo Ementa
+
+create or replace function InserirConsumoEmenta(id_c integer,id_e integer) RETURNS boolean
 LANGUAGE plpgsql
 as $body$
 begin
-	return query select * from alergias;
-end;
+	Insert into consumo_ementas values (id_c,id_e);
+	return 1;
+	end;
 $body$;
 
 --Apagar Restaurante
@@ -320,5 +357,16 @@ begin
 	delete from ementas where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
 	delete from restaurantes where id_restaurante = id_rest;
 	return 1;
+end;
+$body$;
+
+create or replace function SelectAlergias() RETURNS TABLE (
+    id integer,
+    designacao VARCHAR(50)
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query select * from alergias;
 end;
 $body$;

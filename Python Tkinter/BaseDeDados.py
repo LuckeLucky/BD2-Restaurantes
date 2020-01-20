@@ -109,11 +109,33 @@ def AlergiasEmenta(id_ementa):
 
 
 # Actualizar o stock da ementa
-def ConsumirEmenta(id_restaurante,id_ementa):
+def ConsumirEmenta(id_restaurante, id_ementa):
     cur.callproc("ConsumirEmenta", [str(id_restaurante), str(id_ementa)])
     data = cur.fetchone()[0]
     conn.commit()
     return data
+
+
+# Inserir Consumo
+def InserirConsumo(id_restaurante, nome_cliente, nif_cliente, nome_local, lugares, preco):
+    cur.callproc("InserirConsumo", [str(id_restaurante), nome_cliente, nif_cliente, nome_local, lugares, str(preco)])
+    data = cur.fetchone()[0]
+    conn.commit()
+    return data
+
+
+# Inserir Consumo Ementa
+def InserirConsumoEmenta(id_consumo,id_ementa):
+    cur.callproc("InserirConsumoEmenta", [str(id_consumo),str(id_ementa)])
+    conn.commit()
+
+
+# Retirar consumo
+def DeConsumirEmenta(id_restaurante,id_ementa):
+    cur.callproc("DeConsumirEmenta", [str(id_restaurante), str(id_ementa)])
+    conn.commit()
+
+
 
 def SelectAlergias():
     cur.callproc("SelectAlergias")
