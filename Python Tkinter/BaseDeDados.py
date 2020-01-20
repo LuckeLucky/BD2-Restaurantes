@@ -95,8 +95,25 @@ def SelecionarLocaisConsumoRestaurante(id_restaurante):
 
 
 # Preenche lista de Ementas
+def SelecionarEmentasDisponiveis(id_restaurante, tipo_ementa, tipo_refeicao):
+    cur.callproc("SelecionarEmentasDisponiveis", [str(id_restaurante), tipo_ementa, tipo_refeicao])
+    data = cur.fetchall()
+    return data
 
 
+# Mostrar Alergias da Ementa
+def AlergiasEmenta(id_ementa):
+    cur.callproc("AlergiasEmenta", [str(id_ementa)])
+    data = cur.fetchone()[0]
+    return data
+
+
+# Actualizar o stock da ementa
+def ConsumirEmenta(id_restaurante,id_ementa):
+    cur.callproc("ConsumirEmenta", [str(id_restaurante), str(id_ementa)])
+    data = cur.fetchone()[0]
+    conn.commit()
+    return data
 
 def SelectAlergias():
     cur.callproc("SelectAlergias")

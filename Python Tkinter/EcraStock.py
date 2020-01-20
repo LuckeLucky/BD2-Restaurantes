@@ -46,6 +46,8 @@ class EcraStock(tk.Frame):
 
     def AcederIten(self, event):
         selection = self.lista_itens.curselection()
+        if len(selection) == 0:
+            return
         valor = self.lista_itens.get(selection[0])
         self.id_iten_actual = self.lista_ids.get(selection[0])
         split = valor.split("-->")

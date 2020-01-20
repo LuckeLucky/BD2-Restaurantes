@@ -69,6 +69,8 @@ class EcraAdicionarEmenta(tk.Frame):
 
     def AdicionarIten(self):
         selection = self.lista_itens.curselection()
+        if len(selection) == 0:
+            return
         valor = self.lista_itens.get(selection[0])
         id_iten = self.lista_ids.get(selection[0])
         self.itens_ementa.insert(tk.END, valor)

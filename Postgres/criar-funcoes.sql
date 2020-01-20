@@ -230,6 +230,71 @@ begin
 end;
 $body$;
 
+--Listar Ementas do Dia
+
+create or replace function SelecionarEmentasDisponiveis(id_r integer,tipo_ementa varchar(15),tipo_refeicao varchar(15)) RETURNS TABLE (
+    id integer,
+    designacao VARCHAR(15),
+    preco money
+) 
+LANGUAGE plpgsql
+as $body$
+begin
+	return query select mostrar_ementas."id",mostrar_ementas."Designacao",mostrar_ementas."Preco" 
+	from mostrar_ementas 
+	where "Tipo Ementa"=tipo_ementa and 
+	"Tipo Refeicao"=tipo_refeicao and
+	TO_CHAR("Data",'YYYY-MM-DD')=TO_CHAR(NOW(), 'YYYY-MM-DD') and
+	mostrar_ementas.id = ANY (select id_ementa from ementas where id_restaurante=id_r);
+end;
+$body$;
+
+--Reacoes Alergicas da Ementa
+
+create or replace function AlergiasEmenta(id_e integer) RETURNS TEXT
+LANGUAGE plpgsql
+as $body$
+DECLARE 
+registo RECORD;
+cur_itens cursor for select distinct alergias.designacao
+										from ementa_itens join causa
+											on ementa_itens.id_iten=causa.id_iten join alergias
+												on causa.id_alergia=alergias.id_alergia
+										  where ementa_itens.id_ementa=id_e;
+str TEXT;
+begin
+	OPEN cur_itens;
+	LOOP
+		FETCH cur_itens INTO registo;
+		EXIT WHEN NOT FOUND;
+		str:=str||registo.designacao||',';
+	end loop;
+	CLOSE cur_itens;
+	return str;
+end;
+$body$;
+
+--Consumir Ementa
+
+create or replace function ConsumirEmenta(id_r integer,id_e integer) RETURNS boolean
+LANGUAGE plpgsql
+as $body$
+DECLARE 
+begin
+	if exists (select * 
+						 from stock 
+						 where id_iten IN (select ementa_itens.id_iten from ementa_itens where ementa_itens.id_ementa=id_e) 
+						 and stock.id_restaurante=id_r 
+						 and stock.numero_itens=0) then
+						 return 0;
+	end if;
+	update stock
+	set numero_itens=numero_itens-1
+	where id_iten IN (select ementa_itens.id_iten from ementa_itens where ementa_itens.id_ementa=id_e) and id_restaurante=id_r;
+	return 1;
+end;
+$body$;
+
 create or replace function SelectAlergias() RETURNS TABLE (
     id integer,
     designacao VARCHAR(50)
@@ -241,3 +306,19 @@ begin
 end;
 $body$;
 
+--Apagar Restaurante
+
+create or replace function DropRestaurante(id_rest integer) returns boolean 
+LANGUAGE plpgsql
+as $body$
+begin
+	delete from ementa_itens where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest);
+	delete from stock where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from consumo_ementas where id_ementa in (select id_ementa from ementas where id_restaurante = id_rest) and id_consumo in (select id_consumo from consumos, locais_consumo where consumos.id_local_consumo = locais_consumo.id_local_consumo and locais_consumo.id_restaurante = id_rest);
+	delete from consumos where id_local_consumo in (select id_local_consumo from locais_consumo where id_restaurante = id_rest);
+	delete from locais_consumo where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from ementas where id_restaurante in (select id_restaurante from restaurantes where id_restaurante = id_rest);
+	delete from restaurantes where id_restaurante = id_rest;
+	return 1;
+end;
+$body$;
