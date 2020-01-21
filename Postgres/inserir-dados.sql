@@ -1,3 +1,52 @@
+/*==============================================================*/
+/* SEQUENCIAS                                                   */
+/*==============================================================*/
+
+CREATE SEQUENCE seq_alergias START 1;
+ALTER TABLE alergias ALTER COLUMN id_alergia SET DEFAULT nextval('seq_alergias');
+ALTER TABLE alergias ALTER COLUMN id_alergia SET NOT NULL;
+ALTER SEQUENCE seq_alergias OWNED BY alergias.id_alergia; 
+
+CREATE SEQUENCE seq_clientes START 1;
+ALTER TABLE clientes ALTER COLUMN id_cliente SET DEFAULT nextval('seq_clientes');
+ALTER TABLE clientes ALTER COLUMN id_cliente SET NOT NULL;
+ALTER SEQUENCE seq_clientes OWNED BY clientes.id_cliente; 
+
+CREATE SEQUENCE seq_consumos START 1;
+ALTER TABLE consumos ALTER COLUMN id_consumo SET DEFAULT nextval('seq_consumos');
+ALTER TABLE consumos ALTER COLUMN id_consumo SET NOT NULL;
+ALTER SEQUENCE seq_consumos OWNED BY consumos.id_consumo; 
+
+CREATE SEQUENCE seq_datas START 1;
+ALTER TABLE datas ALTER COLUMN id_data SET DEFAULT nextval('seq_datas');
+ALTER TABLE datas ALTER COLUMN id_data SET NOT NULL;
+ALTER SEQUENCE seq_datas OWNED BY datas.id_data; 
+
+CREATE SEQUENCE seq_ementas START 1;
+ALTER TABLE ementas ALTER COLUMN id_ementa SET DEFAULT nextval('seq_ementas');
+ALTER TABLE ementas ALTER COLUMN id_ementa SET NOT NULL;
+ALTER SEQUENCE seq_ementas OWNED BY ementas.id_ementa; 
+
+
+CREATE SEQUENCE seq_itens START 1;
+ALTER TABLE itens ALTER COLUMN id_iten SET DEFAULT nextval('seq_itens');
+ALTER TABLE itens ALTER COLUMN id_iten SET NOT NULL;
+ALTER SEQUENCE seq_itens OWNED BY itens.id_iten; 
+
+CREATE SEQUENCE seq_locaisconsumo START 1;
+ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET DEFAULT nextval('seq_locaisconsumo');
+ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET NOT NULL;
+ALTER SEQUENCE seq_locaisconsumo OWNED BY locais_consumo.id_local_consumo; 
+
+CREATE SEQUENCE seq_restaurantes START 1;
+ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET DEFAULT nextval('seq_restaurantes');
+ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET NOT NULL;
+ALTER SEQUENCE seq_restaurantes OWNED BY restaurantes.id_restaurante; 
+
+/*==============================================================*/
+/* Dados                                                   */
+/*==============================================================*/
+
 INSERT INTO tipo_refeicoes values (1,'Pequeno-Almoço');
 INSERT INTO tipo_refeicoes values (2,'Almoço');
 INSERT INTO tipo_refeicoes values (3,'Jantar');
@@ -51,57 +100,6 @@ insert into alergias (id_alergia, designacao) values (DEFAULT, 'Asteraceae');
 insert into alergias (id_alergia, designacao) values (DEFAULT, 'Rhamnaceae');
 insert into alergias (id_alergia, designacao) values (DEFAULT, 'Polygonaceae');
 insert into alergias (id_alergia, designacao) values (DEFAULT, 'Gesneriaceae');
-
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Costa');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Abeu');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Teodoor');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Dilly');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Alec');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Kimball');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Yurik');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Trevor');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Lyle');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Janos');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Royall');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Zerk');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Spence');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Gustave');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Claybourne');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Urbain');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Olivier');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Marco');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Rand');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Emmett');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Noam');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Tore');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Virge');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Alonzo');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Lowe');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Cchaddie');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Staford');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Aguistin');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Wallis');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Jamison');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Avictor');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Leonerd');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Gaston');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Abbe');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Brennen');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Tate');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Mortie');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Hashim');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Eberto');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Cheston');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Irvin');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Cyrus');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Fabe');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Kylie');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Major');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Torre');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Kincaid');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Huberto');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Travus');
-insert into clientes (id_cliente, nome) values (DEFAULT, 'Gale');
 
 insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT, 'Centidel', 'cgiercke0@forbes.com', 910000001, '6531 Southridge Point');
 insert into restaurantes (id_restaurante, nome, email, telefone, morada) values (DEFAULT, 'Rhyloo', 'ccamilio1@techcrunch.com', 910000002, '052 Texas Point');
@@ -205,53 +203,4 @@ insert into itens (id_iten, designacao) values (DEFAULT, 'Broom And Broom Rack W
 insert into itens (id_iten, designacao) values (DEFAULT, 'Bread - Dark Rye');
 insert into itens (id_iten, designacao) values (DEFAULT, 'Cheese - Victor Et Berthold');
 
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 2, 'Demongeot', 945000001);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 2, 'Coombe', 945000002);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 3, 'Knappitt', 945000003);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 4, 'Gissing', 945000004);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 5, 'Wedge', 945000005);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 6, 'Archley', 945000006);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 7, 'Inder', 945000007);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 8, 'Sparway', 945000008);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 9, 'Ronald', 945000009);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 10, 'Staveley', 945000010);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 11, 'Stud', 945000011);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 12, 'Kidney', 945000012);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 13, 'Cattellion', 945000013);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 14, 'Banville', 945000014);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 15, 'Mannock', 945000015);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 16, 'Clears', 945000016);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 17, 'Ewbanche', 945000017);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 18, 'Chamberlaine', 945000018);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 19, 'Kippax', 945000019);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 20, 'Acreman', 945000020);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 21, 'Lever', 945000021);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 22, 'McGuiney', 945000022);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 23, 'Truder', 945000023);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 24, 'Ziems', 945000024);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 25, 'McLice', 945000025);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 26, 'Lethcoe', 945000026);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 27, 'O''Sheilds', 945000027);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 28, 'Patillo', 945000028);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 29, 'Hannond', 945000029);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 30, 'Monk', 945000030);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 31, 'Henrichs', 945000031);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 32, 'Ickowics', 945000032);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 33, 'Slimings', 945000033);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 34, 'Ikringill', 945000034);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 35, 'Coaster', 945000035);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 36, 'Gamble', 945000036);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 37, 'Svanini', 945000037);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 38, 'Padefield', 945000038);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 39, 'Reichartz', 945000039);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 40, 'Dwyr', 945000040);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 41, 'Fairbourn', 945000041);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 42, 'Matschoss', 945000042);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 43, 'Dudin', 945000043);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 44, 'Shulver', 945000044);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 45, 'Lathbury', 945000045);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 46, 'Doggrell', 945000046);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 47, 'Fullilove', 945000047);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 48, 'Crookston', 945000048);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 49, 'Velden', 945000049);
-insert into funcionarios (id_funcionario, id_restaurante, nome, telefone) values (DEFAULT, 50, 'Fullard', 945000050);
+

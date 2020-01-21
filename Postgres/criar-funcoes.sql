@@ -180,7 +180,7 @@ as select ementas.id_ementa as Id,ementas.designacao as "Designacao",tipo_ementa
 	from ementas join datas
 		on ementas.id_data=datas.id_data join tipo_ementas
 			on ementas.id_tipo_ementa=tipo_ementas.id_tipo_ementa join tipo_refeicoes
-				on ementas.id_tipo_refeicao=tipo_refeicoes.id_tipo_refeicao
+				on ementas.id_tipo_refeicao=tipo_refeicoes.id_tipo_refeicao;
 				
 				
 ----EcraStock
@@ -426,6 +426,8 @@ begin
 	return 1;
 end;
 $body$;
+
+
 
 
 

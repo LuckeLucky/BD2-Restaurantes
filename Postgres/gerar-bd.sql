@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 8                                 */
-/* Created on:     09/12/2019 22:07:25                          */
+/* Created on:     21/01/2020 14:25:05                          */
 /*==============================================================*/
 
 
@@ -52,12 +52,6 @@ drop index E_FEITO_COM_PK;
 
 drop table EMENTA_ITENS;
 
-drop index TRABALHA_FK;
-
-drop index FUNCIONARIOS_PK;
-
-drop table FUNCIONARIOS;
-
 drop index ITENS_PK;
 
 drop table ITENS;
@@ -70,11 +64,11 @@ drop table LOCAIS_CONSUMO;
 
 drop index RELATIONSHIP_6_FK;
 
-drop index CAUSA_FK;
+drop index RELATIONSHIP_5_FK;
 
-drop index CAUSA_PK;
+drop index RELATIONSHIP_5_PK;
 
-drop table CAUSA;
+drop table RELATIONSHIP_5;
 
 drop index RESTAURANTES_PK;
 
@@ -101,7 +95,7 @@ drop table TIPO_REFEICOES;
 /*==============================================================*/
 create table ALERGIAS (
    ID_ALERGIA           INT4                 not null,
-   DESIGNACAO           VARCHAR(30)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    constraint PK_ALERGIAS primary key (ID_ALERGIA)
 );
 
@@ -118,7 +112,7 @@ ID_ALERGIA
 create table CLIENTES (
    ID_CLIENTE           INT4                 not null,
    NOME                 VARCHAR(20)          not null,
-   NIF					VARCHAR(9),
+   NIF                  VARCHAR(9)           not null,
    constraint PK_CLIENTES primary key (ID_CLIENTE)
 );
 
@@ -217,7 +211,7 @@ create table EMENTAS (
    ID_TIPO_EMENTA       INT4                 not null,
    ID_TIPO_REFEICAO     INT4                 not null,
    ID_DATA              INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    PRECO                MONEY                not null,
    constraint PK_EMENTAS primary key (ID_EMENTA)
 );
@@ -289,31 +283,6 @@ ID_ITEN
 );
 
 /*==============================================================*/
-/* Table: FUNCIONARIOS                                          */
-/*==============================================================*/
-create table FUNCIONARIOS (
-   ID_FUNCIONARIO       INT4                 not null,
-   ID_RESTAURANTE       INT4                 not null,
-   NOME                 VARCHAR(20)          not null,
-   TELEFONE             VARCHAR(9)           not null,
-   constraint PK_FUNCIONARIOS primary key (ID_FUNCIONARIO)
-);
-
-/*==============================================================*/
-/* Index: FUNCIONARIOS_PK                                       */
-/*==============================================================*/
-create unique index FUNCIONARIOS_PK on FUNCIONARIOS (
-ID_FUNCIONARIO
-);
-
-/*==============================================================*/
-/* Index: TRABALHA_FK                                           */
-/*==============================================================*/
-create  index TRABALHA_FK on FUNCIONARIOS (
-ID_RESTAURANTE
-);
-
-/*==============================================================*/
 /* Table: ITENS                                                 */
 /*==============================================================*/
 create table ITENS (
@@ -335,7 +304,7 @@ ID_ITEN
 create table LOCAIS_CONSUMO (
    ID_LOCAL_CONSUMO     INT4                 not null,
    ID_RESTAURANTE       INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    NUMERO_LUGARES       INT4                 not null,
    constraint PK_LOCAIS_CONSUMO primary key (ID_LOCAL_CONSUMO)
 );
@@ -355,33 +324,33 @@ ID_RESTAURANTE
 );
 
 /*==============================================================*/
-/* Table: CAUSA                                        */
+/* Table: RELATIONSHIP_5                                        */
 /*==============================================================*/
-create table CAUSA (
+create table RELATIONSHIP_5 (
    ID_ITEN              INT4                 not null,
    ID_ALERGIA           INT4                 not null,
-   constraint PK_CAUSA primary key (ID_ITEN, ID_ALERGIA)
+   constraint PK_RELATIONSHIP_5 primary key (ID_ITEN, ID_ALERGIA)
 );
 
 /*==============================================================*/
-/* Index: CAUSA_PK                                     */
+/* Index: RELATIONSHIP_5_PK                                     */
 /*==============================================================*/
-create unique index CAUSA_PK on CAUSA (
+create unique index RELATIONSHIP_5_PK on RELATIONSHIP_5 (
 ID_ITEN,
 ID_ALERGIA
 );
 
 /*==============================================================*/
-/* Index: CAUSA_FK                                     */
+/* Index: RELATIONSHIP_5_FK                                     */
 /*==============================================================*/
-create  index CAUSA_FK on CAUSA (
+create  index RELATIONSHIP_5_FK on RELATIONSHIP_5 (
 ID_ITEN
 );
 
 /*==============================================================*/
 /* Index: RELATIONSHIP_6_FK                                     */
 /*==============================================================*/
-create  index RELATIONSHIP_6_FK on CAUSA (
+create  index RELATIONSHIP_6_FK on RELATIONSHIP_5 (
 ID_ALERGIA
 );
 
@@ -441,7 +410,7 @@ ID_ITEN
 /*==============================================================*/
 create table TIPO_EMENTAS (
    ID_TIPO_EMENTA       INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    constraint PK_TIPO_EMENTAS primary key (ID_TIPO_EMENTA)
 );
 
@@ -457,7 +426,7 @@ ID_TIPO_EMENTA
 /*==============================================================*/
 create table TIPO_REFEICOES (
    ID_TIPO_REFEICAO     INT4                 not null,
-   DESIGNACAO           VARCHAR(15)          not null,
+   DESIGNACAO           VARCHAR(50)          not null,
    constraint PK_TIPO_REFEICOES primary key (ID_TIPO_REFEICAO)
 );
 
@@ -518,87 +487,28 @@ alter table EMENTA_ITENS
       references ITENS (ID_ITEN)
       on delete restrict on update restrict;
 
-alter table FUNCIONARIOS
-   add constraint FK_FUNCIONA_TRABALHA_RESTAURA foreign key (ID_RESTAURANTE)
-      references RESTAURANTES (ID_RESTAURANTE)
-      on delete restrict on update restrict;
-
 alter table LOCAIS_CONSUMO
    add constraint FK_LOCAIS_C_LOCAIS_RESTAURA foreign key (ID_RESTAURANTE)
       references RESTAURANTES (ID_RESTAURANTE)
       on delete restrict on update restrict;
 
-alter table CAUSA
+alter table RELATIONSHIP_5
    add constraint FK_RELATION_RELATIONS_ITENS foreign key (ID_ITEN)
       references ITENS (ID_ITEN)
       on delete restrict on update restrict;
 
-alter table CAUSA
+alter table RELATIONSHIP_5
    add constraint FK_RELATION_RELATIONS_ALERGIAS foreign key (ID_ALERGIA)
       references ALERGIAS (ID_ALERGIA)
       on delete restrict on update restrict;
 
 alter table STOCK
-   add constraint FK_STOCK_ASSOCIATI_RESTAURA foreign key (ID_RESTAURANTE)
+   add constraint FK_STOCK_STOCK_RESTAURA foreign key (ID_RESTAURANTE)
       references RESTAURANTES (ID_RESTAURANTE)
       on delete restrict on update restrict;
 
 alter table STOCK
-   add constraint FK_STOCK_ASSOCIATI_ITENS foreign key (ID_ITEN)
+   add constraint FK_STOCK_STOCK2_ITENS foreign key (ID_ITEN)
       references ITENS (ID_ITEN)
       on delete restrict on update restrict;
-
-
-/*==============================================================*/
-/* SEQUENCIAS                                                   */
-/*==============================================================*/
-
-CREATE SEQUENCE seq_alergias START 1;
-ALTER TABLE alergias ALTER COLUMN id_alergia SET DEFAULT nextval('seq_alergias');
-ALTER TABLE alergias ALTER COLUMN id_alergia SET NOT NULL;
-ALTER SEQUENCE seq_alergias OWNED BY alergias.id_alergia; 
-
-CREATE SEQUENCE seq_clientes START 1;
-ALTER TABLE clientes ALTER COLUMN id_cliente SET DEFAULT nextval('seq_clientes');
-ALTER TABLE clientes ALTER COLUMN id_cliente SET NOT NULL;
-ALTER SEQUENCE seq_clientes OWNED BY clientes.id_cliente; 
-
-CREATE SEQUENCE seq_consumos START 1;
-ALTER TABLE consumos ALTER COLUMN id_consumo SET DEFAULT nextval('seq_consumos');
-ALTER TABLE consumos ALTER COLUMN id_consumo SET NOT NULL;
-ALTER SEQUENCE seq_consumos OWNED BY consumos.id_consumo; 
-
-CREATE SEQUENCE seq_datas START 1;
-ALTER TABLE datas ALTER COLUMN id_data SET DEFAULT nextval('seq_datas');
-ALTER TABLE datas ALTER COLUMN id_data SET NOT NULL;
-ALTER SEQUENCE seq_datas OWNED BY datas.id_data; 
-
-CREATE SEQUENCE seq_ementas START 1;
-ALTER TABLE ementas ALTER COLUMN id_ementa SET DEFAULT nextval('seq_ementas');
-ALTER TABLE ementas ALTER COLUMN id_ementa SET NOT NULL;
-ALTER SEQUENCE seq_ementas OWNED BY ementas.id_ementa; 
-
-CREATE SEQUENCE seq_funcionarios START 1;
-ALTER TABLE funcionarios ALTER COLUMN id_funcionario SET DEFAULT nextval('seq_funcionarios');
-ALTER TABLE funcionarios ALTER COLUMN id_funcionario SET NOT NULL;
-ALTER SEQUENCE seq_funcionarios OWNED BY funcionarios.id_funcionario; 
-
-CREATE SEQUENCE seq_itens START 1;
-ALTER TABLE itens ALTER COLUMN id_iten SET DEFAULT nextval('seq_itens');
-ALTER TABLE itens ALTER COLUMN id_iten SET NOT NULL;
-ALTER SEQUENCE seq_itens OWNED BY itens.id_iten; 
-
-CREATE SEQUENCE seq_locaisconsumo START 1;
-ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET DEFAULT nextval('seq_locaisconsumo');
-ALTER TABLE locais_consumo ALTER COLUMN id_local_consumo SET NOT NULL;
-ALTER SEQUENCE seq_locaisconsumo OWNED BY locais_consumo.id_local_consumo; 
-
-CREATE SEQUENCE seq_restaurantes START 1;
-ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET DEFAULT nextval('seq_restaurantes');
-ALTER TABLE restaurantes ALTER COLUMN id_restaurante SET NOT NULL;
-ALTER SEQUENCE seq_restaurantes OWNED BY restaurantes.id_restaurante; 
-
-
-
-
 
